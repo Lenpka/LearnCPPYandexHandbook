@@ -7,10 +7,10 @@
 
 std::vector<std::vector <int>> Transpose(const std::vector<std::vector <int>>& matrix)
 {
-    std::vector <std::vector<int>> matrixTranspose (matrix.size(), std::vector<int> (matrix[0].size()));
-    for (size_t i = 0; i < matrix.size(); i++)
+    std::vector <std::vector<int>> matrixTranspose (matrix[0].size(), std::vector<int>(matrix.size()));
+    for (size_t i = 0; i < matrix[0].size(); i++)
     {
-        for (size_t j = 0; j < matrix[0].size(); j++)
+        for (size_t j = 0; j < matrix.size(); j++)
         {
             matrixTranspose[i][j] = matrix[j][i];
         }
@@ -39,9 +39,10 @@ int main()
     Tmatrix = Transpose(matrix);
     for (size_t i = 0; i < n; i++)
     {
+        std::cout << '\n';
         for (size_t j = 0; j < m; j++)
         {
-            std::cout <<  Tmatrix[i][j];
+            std::cout <<  Tmatrix[i][j] << ' ';
 
         }
     }
