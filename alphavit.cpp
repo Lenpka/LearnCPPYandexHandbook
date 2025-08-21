@@ -1,93 +1,84 @@
 ﻿#include <iostream>
 #include <map>
 #include <string>
+#include <unordered_set>
 #include <set>
-#include <vector>
+#include <utility>
 
-//void operator<<(std::unordered_set<char> inp)
-//{
-//	for (auto& i = inp.begin(); i != inp.end(); i++) {
-//		std::cout << i << '\n';
-//	}
-//}
+//функция сравнения двух контейнеров
+std::set<char> ret(const std::string& word1, const std::string& word2)
+{
+	std::set<char> setword1 (word1.begin(), word1.end());
+	std::set<char> answer;
+	for (const auto& chr : word2)
+	{
+		if (setword1.find(chr) != setword1.end())
+		{
+			answer.insert(chr);
+		}
+
+	}
+	return answer;
+}
+
 
 
 int main()
 {
-//	std::map <char, int> counter;
-	std::set <char> coun;
-	std::vector<std::pair<std::set<char>, size_t>> contCont;
-	std::vector <char> answer;
-	std::string input;
-	std::set <char> alphavit;
-	short int count{ 0 }; size_t minlen{ 10000 };
+	//	std::map <char, int> counter;
+	std::set <char> ans;
+	int count = 0;
+	std::string  input;
+	std::pair <std::string, std::string> twoWods = { "", "" };
+	std::string s;
+
+
+
 	while (std::getline(std::cin, input))
 	{
+		//Пустые элементы
 		if (input == "")
-		{
-			break;
+		{	
+			ans = {};
 		}
-		for (size_t i = 0; i < input.size(); i++)
+		count += 1;
+
+
+		if (count == 1)
 		{
-			//	counter[input[i]] += 1;
-			coun.insert(input[i]); //a,b,c
+			twoWods.first = input;
 		}
-		if (minlen >= coun.size())
+		else if (count == 2)
 		{
-			minlen = coun.size();
+			twoWods.second = input;
 		}
-
-	
-		if (count <=0)
+		else if (count > 2)
 		{
-			alphavit = coun;
-			count += 1;
-		}
-
-		else
-		{
-			count += 1;
-			std::set<char>::iterator st = coun.begin();
-
-			if (count <= 2)
-			{
-				answer.clear();
-				for (size_t j = 0; j < alphavit.size(); j++)
-				{
-
-					if (alphavit.find(*st) != alphavit.end())
-					{
-
-						answer.push_back(*st);
-					}
-					std::advance(st, 1);
-				}
-			}
-			else if (count > 2)
-			{
-				for (size_t j = 0; j < minlen; j++)
-				{
-
-					if ((alphavit.find(*st) != alphavit.end()) and (count > 2))
-					{
-						answer.clear();
-
-						answer.push_back(*st);
-					}
-				}
-			}
+			twoWods.first = s;
+			twoWods.second = input;
 		}
 
-	/*	contCont.push_back({ coun , coun.size()});
-		for (const auto& j: coun)
+		ans = ret(twoWods.first, twoWods.second);
+		for (auto const& str : ans)
 		{
-			std::cout << j << '\n';
-		}*/
+			s += str;
+		}
 
+				
 	}
-	for (const auto& iter:answer)
+	if (count == 1)
 	{
-		std::cout << iter << '\n';
-		
+		for (const auto& iter :std::set(twoWods.first.begin(), std::prev(twoWods.first.end())))
+		{
+			std::cout << iter << '\n';
+		}
+	//std :: cout <<	twoWods.first[twoWods.first.size()-1];
+	}
+	else
+	{
+		for (const auto& iter : ans)
+		{
+			std::cout << iter;
+		}
 	}
 }
