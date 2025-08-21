@@ -10,7 +10,8 @@ std::set<char> ret(const std::string& word1, const std::string& word2)
 {
 	std::set<char> setword1 (word1.begin(), word1.end());
 	std::set<char> answer;
-	for (const auto& chr : word2)
+	std::set<char> setword2(word2.begin(), word2.end());
+	for (const auto& chr : setword2)
 	{
 		if (setword1.find(chr) != setword1.end())
 		{
@@ -18,6 +19,7 @@ std::set<char> ret(const std::string& word1, const std::string& word2)
 		}
 
 	}
+	// dataans, ananas -> ans
 	return answer;
 }
 
@@ -43,22 +45,26 @@ int main()
 		}
 		count += 1;
 
-
+		// первый элемент
 		if (count == 1)
 		{
 			twoWods.first = input;
 		}
+		// второй
 		else if (count == 2)
 		{
 			twoWods.second = input;
 		}
+		// если больше, чем 2 слова на входе, то первый 
 		else if (count > 2)
 		{
 			twoWods.first = s;
+			s.clear();
 			twoWods.second = input;
 		}
 
 		ans = ret(twoWods.first, twoWods.second);
+
 		for (auto const& str : ans)
 		{
 			s += str;
@@ -68,11 +74,10 @@ int main()
 	}
 	if (count == 1)
 	{
-		for (const auto& iter :std::set(twoWods.first.begin(), std::prev(twoWods.first.end())))
+		for (const auto& iter :std::set(twoWods.first.begin(), (twoWods.first.end())))
 		{
-			std::cout << iter << '\n';
+			std::cout << iter;
 		}
-	//std :: cout <<	twoWods.first[twoWods.first.size()-1];
 	}
 	else
 	{
